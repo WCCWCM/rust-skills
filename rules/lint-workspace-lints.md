@@ -148,6 +148,18 @@ jobs:
         run: RUSTDOCFLAGS="-D warnings" cargo doc --workspace --no-deps
 ```
 
+## Denying Warnings via Cargo (Rust 1.97+)
+
+Cargo's `build.warnings` setting (stable since 1.97) controls how lint warnings from your own (local) packages are treated, so CI no longer has to push `-D warnings` through `RUSTFLAGS`. It accepts `"warn"`, `"allow"`, or `"deny"`.
+
+```toml
+# .cargo/config.toml (or set CARGO_BUILD_WARNINGS=deny in the CI job)
+[build]
+warnings = "deny"
+```
+
+Since Rust 1.99, Cargo also disables incremental compilation by default when the `CI` environment variable is set, so CI jobs no longer need to turn it off by hand.
+
 ## Lint Categories
 
 ```toml

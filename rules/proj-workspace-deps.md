@@ -68,6 +68,18 @@ tokio = { workspace = true, features = ["net", "io-util"] }
 tokio = { workspace = true }  # Just workspace features
 ```
 
+Since Rust 1.99, members on edition 2024 or later can also override `default-features` on an inherited dependency (RFC 3945). Older editions ignore the override and print a warning.
+
+```toml
+# Root Cargo.toml
+[workspace.dependencies]
+reqwest = { version = "0.12", features = ["json"] }
+
+# crate-c/Cargo.toml (edition = "2024")
+[dependencies]
+reqwest = { workspace = true, default-features = false }  # honored on 1.99+
+```
+
 ## Dev and Build Dependencies
 
 ```toml
