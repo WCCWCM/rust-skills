@@ -81,6 +81,8 @@ mod tests {
 
 These methods are available on all primitive integer types in the standard library (`u8` through `u128`, `i8` through `i128`, `usize`, `isize`). Equivalent sub/mul/div/shl/shr variants exist for every arithmetic operation.
 
+Use the associated constants (`u32::MAX`, `i64::MIN`) when you need a type's bounds. The legacy module constants such as `std::i32::MAX` are fully deprecated as of Rust 1.99.
+
 ## See Also
 
 - [num-saturating-clamp](num-saturating-clamp.md) - bound values with `clamp` and saturating arithmetic

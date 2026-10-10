@@ -4,6 +4,31 @@ All notable changes to this skill are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/), and the project aims to follow
 semantic versioning for the rule set.
 
+## [1.6.0]
+
+### Changed
+- Updated from Rust 1.96 to **Rust 1.99** (released 2026-10-01) after reviewing
+  the 1.97, 1.98, and 1.99 release notes. The "Current for Rust" line in
+  `SKILL.md` and `README.md` and the README badge now say 1.99.
+- `err-question-mark`: added `bool::ok_or` / `ok_or_else` guard clauses (1.98).
+- `lint-workspace-lints`: added Cargo's `build.warnings` setting (1.97) as an
+  alternative to `-D warnings` in CI, and the 1.99 default of disabling
+  incremental compilation when `CI` is set.
+- `num-nonzero`: noted `NonZero<T>::from_str_radix` (1.98) and the 1.97 bit
+  helpers.
+- `num-overflow-explicit`: noted that the legacy `std::i32::MAX`-style module
+  constants are fully deprecated (1.99).
+- `proj-workspace-deps`: noted that edition-2024 members can override
+  `default-features` on inherited dependencies (1.99, RFC 3945).
+- `unsafe-no-mangle-unsafe`: noted that `#[no_mangle]` on generic items is now a
+  hard error (1.99).
+- `opt-likely-hint`, `opt-inline-never-cold`: `std::hint::likely`/`unlikely` are
+  still unstable on 1.99 (not among the APIs stabilized in 1.97–1.99).
+- Examples that need an API newer than the pinned CI toolchain (1.95.0) are
+  fenced as `rust,ignore` so the compile-check harness skips them. Bump the
+  pin in `checks/rust-toolchain.toml` and `ci.yml` and regenerate
+  `checks/baseline.txt` on the same version to compile-check them.
+
 ## [1.5.1]
 
 ### Changed

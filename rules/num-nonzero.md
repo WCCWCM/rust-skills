@@ -85,6 +85,7 @@ mod tests {
 - All `NonZero*` types live in `std::num`: `NonZeroU8`, `NonZeroU16`, `NonZeroU32`, `NonZeroU64`, `NonZeroU128`, `NonZeroUsize`, and their signed counterparts.
 - **Construction**: `NonZeroU32::new(n) -> Option<NonZeroU32>`. Use `NonZeroU32::new(n).expect("n must be non-zero")` only at well-verified program boundaries, not in production fallible paths.
 - **Access**: `.get()` returns the inner primitive value.
+- **Parsing and bit helpers**: `NonZero<T>::from_str_radix` (stable since 1.98) parses a non-zero integer from a string in a given radix. Rust 1.97 added the bit helpers `bit_width`, `highest_one`, `lowest_one`, `isolate_highest_one`, and `isolate_lowest_one` on both `NonZero<T>` and the primitive integers.
 - **Arithmetic**: `NonZeroU32` does not implement `Add`/`Sub` directly (the result could be zero). Extract with `.get()`, do arithmetic, and reconstruct with `NonZeroU32::new(result)?`.
 - **Niche optimization** applies to `Option` and `Result`: the compiler stores the `None`/`Err` discriminant in the zero bit-pattern, so no extra word is needed. This also applies to custom newtypes that wrap `NonZero*`.
 

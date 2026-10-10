@@ -94,6 +94,21 @@ fn get_required_config(key: &str) -> Result<String, Error> {
 }
 ```
 
+## ? with bool Guards (Rust 1.98+)
+
+`bool::ok_or` and `bool::ok_or_else` (stable since 1.98) turn a condition into a `Result<(), E>`, so a guard clause can use `?` instead of an `if !cond { return Err(..) }` block. `true` becomes `Ok(())`; `false` becomes `Err(..)`.
+
+```rust,ignore
+// Requires Rust 1.98+
+fn ensure_can_publish(user: &User) -> Result<(), AuthError> {
+    user.is_active().ok_or(AuthError::Inactive)?;
+    user.has_role(Role::Editor).ok_or_else(|| AuthError::Forbidden(user.id))?;
+    Ok(())
+}
+```
+
+Use `ok_or_else` when building the error allocates or is otherwise costly; `ok_or` evaluates its argument eagerly, exactly like `Option::ok_or`.
+
 ## Error Type Conversion
 
 ```rust
